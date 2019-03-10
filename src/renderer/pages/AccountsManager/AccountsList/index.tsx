@@ -151,8 +151,8 @@ class AccountsList extends React.Component<
             GlobalConfiguration.addAccountAndSave(
               splitted[0],
               splitted[1],
-              -1,
-              ""
+              splitted[2] ? parseInt(splitted[2], 10) : -1,
+              splitted[3] || ""
             );
           }
           CookieMain.refreshEntities();

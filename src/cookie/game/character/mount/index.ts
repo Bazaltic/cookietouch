@@ -12,14 +12,14 @@ export default class Mount implements IClearable {
   public currentRatio: number = 0;
   public data: MountClientData | undefined;
   private account: Account;
-  private onMountSet = new LiteEvent<void>();
+  private onRidingUpdated = new LiteEvent<boolean>();
 
   constructor(account: Account) {
     this.account = account;
   }
 
-  public get MountSet() {
-    return this.onMountSet.expose();
+  public get RidingUpdated() {
+    return this.onRidingUpdated.expose();
   }
 
   public toggleRiding() {
@@ -48,11 +48,11 @@ export default class Mount implements IClearable {
   public UpdateMountSetMessage(message: MountSetMessage) {
     this.hasMount = true;
     this.data = message.mountData;
-    this.onMountSet.trigger();
   }
 
   public UpdateMountRidingMessage(message: MountRidingMessage) {
     this.isRiding = message.isRiding;
+    this.onRidingUpdated.trigger(this.isRiding);
   }
 
   public UpdateMountXpRatioMessage(message: MountXpRatioMessage) {

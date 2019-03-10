@@ -9,6 +9,7 @@ import { ChatChannelsMultiEnum } from "@/protocol/enums/ChatChannelsMultiEnum";
 import { ChatErrorEnum } from "@/protocol/enums/ChatErrorEnum";
 import { ObjectErrorEnum } from "@/protocol/enums/ObjectErrorEnum";
 import { TextInformationTypeEnum } from "@/protocol/enums/TextInformationTypeEnum";
+import ChatErrorMessage from "@/protocol/network/messages/ChatErrorMessage";
 import ChatServerCopyMessage from "@/protocol/network/messages/ChatServerCopyMessage";
 import ChatServerMessage from "@/protocol/network/messages/ChatServerMessage";
 import ChatServerWithObjectMessage from "@/protocol/network/messages/ChatServerWithObjectMessage";
@@ -73,7 +74,10 @@ export default class ChatFrame implements IFrame {
     this.HandleChatServerMessage(account, message);
   }
 
-  private async HandleChatErrorMessage(account: Account, message: any) {
+  private async HandleChatErrorMessage(
+    account: Account,
+    message: ChatErrorMessage
+  ) {
     if (typeof message.reason === "number") {
       account.logger.logError(
         LanguageManager.trans("chatFrame"),

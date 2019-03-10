@@ -11,6 +11,7 @@ import MapAPI from "@/scripts/api/MapAPI";
 import MountAPI from "@/scripts/api/MountAPI";
 import NpcAPI from "@/scripts/api/NpcAPI";
 import StorageAPI from "@/scripts/api/StorageAPI";
+import MerchantsAPI from "./MerchantsAPI";
 import QuestsAPI from "./QuestsAPI";
 
 export default class API {
@@ -27,6 +28,7 @@ export default class API {
   public storage: StorageAPI;
   public craft: CraftAPI;
   public quests: QuestsAPI;
+  public merchants: MerchantsAPI;
 
   constructor(account: Account) {
     this.bid = new BidAPI(account);
@@ -42,5 +44,6 @@ export default class API {
     this.storage = new StorageAPI(account);
     this.craft = new CraftAPI(account);
     this.quests = new QuestsAPI(account);
+    this.merchants = new MerchantsAPI(account);
   }
 }

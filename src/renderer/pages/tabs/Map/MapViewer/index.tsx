@@ -3,6 +3,7 @@ import FighterEntry from "@/game/fight/fighters/FighterEntry";
 import FightMonsterEntry from "@/game/fight/fighters/FightMonsterEntry";
 import FightPlayerEntry from "@/game/fight/fighters/FightPlayerEntry";
 import { MapChangeDirections } from "@/game/managers/movements/MapChangeDirections";
+import MerchantEntry from "@/game/map/entities/MerchantEntry";
 import MonstersGroupEntry from "@/game/map/entities/MonstersGroupEntry";
 import NpcEntry from "@/game/map/entities/NpcEntry";
 import PlayerEntry from "@/game/map/entities/PlayerEntry";
@@ -50,6 +51,7 @@ class MapViewer extends React.Component<IMapViewerProps, IMapViewerState> {
   private readonly playersBrush = new Color(255, 81, 113, 202);
   private readonly doorsBrush = new Color(255, 150, 75, 133);
   private readonly othersBrush = new Color(104, 247, 38, 183);
+  private readonly merchantsBrush = new Color(24, 97, 138, 200);
   private readonly interactivesBrush = new Color(255, 1, 143, 140);
   private readonly npcsBrush = new Color(255, 179, 120, 211);
   private readonly sunImage = "21000.png";
@@ -308,6 +310,13 @@ class MapViewer extends React.Component<IMapViewerProps, IMapViewerState> {
           .ElementAt(cellId)
           .DrawRectangle(drawingContext, this.othersBrush);
       } else if (
+        this.props.account.game.map.merchants.find(d => d.cellId === cellId) !==
+        undefined
+      ) {
+        this.cells
+          .ElementAt(cellId)
+          .DrawPie(drawingContext, this.merchantsBrush);
+      } else if (
         this.props.account.game.map.statedElements.find(
           se => se.cellId === cellId
         ) !== undefined ||
@@ -558,6 +567,18 @@ class MapViewer extends React.Component<IMapViewerProps, IMapViewerState> {
             );
             return;
           } else if (
+            this.props.account.game.map.merchants.find(
+              d => d.cellId === cellId
+            ) !== undefined
+          ) {
+            this.showCellInfo(
+              this.props.account.game.map.merchants.find(
+                d => d.cellId === cellId
+              )!,
+              cell.mid
+            );
+            return;
+          } else if (
             this.props.account.game.map.statedElements.find(
               se => se.cellId === cellId
             ) !== undefined
@@ -604,7 +625,8 @@ class MapViewer extends React.Component<IMapViewerProps, IMapViewerState> {
       | NpcEntry
       | MonstersGroupEntry
       | ElementInCellEntry
-      | StatedElementEntry,
+      | StatedElementEntry
+      | MerchantEntry,
     point: Point
   ) => {
     let htmlBuffer = "";
@@ -638,10 +660,10 @@ class MapViewer extends React.Component<IMapViewerProps, IMapViewerState> {
         htmlBuffer += `<img height="25" width="25" src="${m.iconUrl}">`;
         htmlBuffer += `- [${m.genericId}] ${m.name} (${m.level})<br>`;
       }
+    } else if (e instanceof MerchantEntry) {
+      htmlBuffer += `Merchant: ${e.name} (${e.cellId})`;
     } else if (e instanceof ElementInCellEntry) {
-      htmlBuffer += `Door ${e.element.name ? `: ${e.element.name}` : ""} (${
-        e.cellId
-      })`;
+      htmlBuffer += `${e.element.name || "Door "} (${e.cellId})`;
     } else if (e instanceof StatedElementEntry) {
       const interactive = this.props.account.game.map.getInteractiveElement(
         e.id
@@ -679,7 +701,7 @@ class MapViewer extends React.Component<IMapViewerProps, IMapViewerState> {
     const tooltip = this.tooltipRef.current!;
     tooltip.innerHTML = htmlBuffer;
     tooltip.style.left = `${point.x + 5}px`;
-    tooltip.style.top = `${point.y + 355}px`;
+    tooltip.style.top = `${point.y + 315}px`;
     tooltip.style.visibility = "visible";
   };
 
@@ -697,6 +719,17 @@ class MapViewer extends React.Component<IMapViewerProps, IMapViewerState> {
 
     for (let i = 0; i < this.cells.Count(); i++) {
       if (this.cells.ElementAt(i).IsPointInside(pos)) {
+        const interactive = this.props.account.game.managers.interactives.getElementOnCell(
+          i
+        );
+
+        if (interactive) {
+          this.props.account.game.managers.interactives.useInteractiveByCellId(
+            i
+          );
+          break;
+        }
+
         if (this.props.account.game.map.data!.cells[i].isWalkable(false)) {
           this.setState({ selectedCellId: i }, () => this.buildMap());
 

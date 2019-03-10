@@ -2,6 +2,12 @@ import Account from "@/account";
 import MovementsManager from "@/game/managers/movements";
 import { MovementRequestResults } from "@/game/managers/movements/MovementRequestResults";
 import InteractiveElementEntry from "@/game/map/interactives/InteractiveElementEntry";
+import InteractiveUsedMessage from "@/protocol/network/messages/InteractiveUsedMessage";
+import InteractiveUseErrorMessage from "@/protocol/network/messages/InteractiveUseErrorMessage";
+import LockableCodeResultMessage from "@/protocol/network/messages/LockableCodeResultMessage";
+import LockableShowCodeDialogMessage from "@/protocol/network/messages/LockableShowCodeDialogMessage";
+import LockableStateUpdateHouseDoorMessage from "@/protocol/network/messages/LockableStateUpdateHouseDoorMessage";
+import LockableStateUpdateStorageMessage from "@/protocol/network/messages/LockableStateUpdateStorageMessage";
 import IClearable from "@/utils/IClearable";
 import LiteEvent from "@/utils/LiteEvent";
 import { sleep } from "@/utils/Time";
@@ -241,7 +247,10 @@ export default class InteractivesManager implements IClearable {
     this.onUseFinished.trigger(success);
   }
 
-  private handleInteractiveUsedMessage = (account: Account, message: any) => {
+  private handleInteractiveUsedMessage = (
+    account: Account,
+    message: InteractiveUsedMessage
+  ) => {
     if (
       this._interactiveToUse === null ||
       message.entityId !== this._account.game.character.id
@@ -257,7 +266,7 @@ export default class InteractivesManager implements IClearable {
 
   private handleInteractiveUseErrorMessage = (
     account: Account,
-    message: any
+    message: InteractiveUseErrorMessage
   ) => {
     if (this._interactiveToUse === null) {
       return;
@@ -268,7 +277,7 @@ export default class InteractivesManager implements IClearable {
 
   private handleLockableShowCodeDialogMessage = async (
     account: Account,
-    message: any
+    message: LockableShowCodeDialogMessage
   ) => {
     await sleep(1000);
 
@@ -283,7 +292,7 @@ export default class InteractivesManager implements IClearable {
 
   private handleLockableCodeResultMessage = (
     account: Account,
-    message: any
+    message: LockableCodeResultMessage
   ) => {
     if (this._interactiveToUse === null || this._lockCode === null) {
       return;
@@ -298,7 +307,7 @@ export default class InteractivesManager implements IClearable {
 
   private handleLockableStateUpdateHouseDoorMessage = (
     account: Account,
-    message: any
+    message: LockableStateUpdateHouseDoorMessage
   ) => {
     if (this._interactiveToUse === null || this._lockCode === null) {
       return;
@@ -311,7 +320,7 @@ export default class InteractivesManager implements IClearable {
 
   private handleLockableStateUpdateStorageMessage = (
     account: Account,
-    message: any
+    message: LockableStateUpdateStorageMessage
   ) => {
     if (this._interactiveToUse === null || this._lockCode === null) {
       return;

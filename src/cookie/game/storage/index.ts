@@ -6,7 +6,14 @@ import DataManager from "@/protocol/data";
 import Items from "@/protocol/data/classes/Items";
 import { DataTypes } from "@/protocol/data/DataTypes";
 import { DialogTypeEnum } from "@/protocol/enums/DialogTypeEnum";
+import ExchangeLeaveMessage from "@/protocol/network/messages/ExchangeLeaveMessage";
+import ExchangeStartedWithStorageMessage from "@/protocol/network/messages/ExchangeStartedWithStorageMessage";
 import StorageInventoryContentMessage from "@/protocol/network/messages/StorageInventoryContentMessage";
+import StorageKamasUpdateMessage from "@/protocol/network/messages/StorageKamasUpdateMessage";
+import StorageObjectRemoveMessage from "@/protocol/network/messages/StorageObjectRemoveMessage";
+import StorageObjectsRemoveMessage from "@/protocol/network/messages/StorageObjectsRemoveMessage";
+import StorageObjectsUpdateMessage from "@/protocol/network/messages/StorageObjectsUpdateMessage";
+import StorageObjectUpdateMessage from "@/protocol/network/messages/StorageObjectUpdateMessage";
 import LiteEvent from "@/utils/LiteEvent";
 import { List } from "linqts";
 
@@ -212,7 +219,9 @@ export default class Storage {
     return true;
   }
 
-  public async UpdateExchangeStartedWithStorageMessage(message: any) {
+  public async UpdateExchangeStartedWithStorageMessage(
+    message: ExchangeStartedWithStorageMessage
+  ) {
     this.account.state = AccountStates.STORAGE;
   }
 
@@ -237,12 +246,16 @@ export default class Storage {
     this.onStorageStarted.trigger();
   }
 
-  public async UpdateStorageKamasUpdateMessage(message: any) {
+  public async UpdateStorageKamasUpdateMessage(
+    message: StorageKamasUpdateMessage
+  ) {
     this.kamas = message.kamasTotal;
     this.onStorageUpdated.trigger();
   }
 
-  public async UpdateStorageObjectUpdateMessage(message: any) {
+  public async UpdateStorageObjectUpdateMessage(
+    message: StorageObjectUpdateMessage
+  ) {
     const obj = this.objects.FirstOrDefault(
       o => o !== undefined && o.uid === message.object.objectUID
     );
@@ -261,14 +274,18 @@ export default class Storage {
     this.onStorageUpdated.trigger();
   }
 
-  public async UpdateStorageObjectRemoveMessage(message: any) {
+  public async UpdateStorageObjectRemoveMessage(
+    message: StorageObjectRemoveMessage
+  ) {
     this.objects = this.objects.RemoveAll(
       o => o !== undefined && o.uid === message.objectUID
     );
     this.onStorageUpdated.trigger();
   }
 
-  public async UpdateStorageObjectsUpdateMessage(message: any) {
+  public async UpdateStorageObjectsUpdateMessage(
+    message: StorageObjectsUpdateMessage
+  ) {
     for (const item of message.objectList) {
       const obj = this.objects.FirstOrDefault(
         o => o !== undefined && o.uid === item.objectUID
@@ -289,7 +306,9 @@ export default class Storage {
     this.onStorageUpdated.trigger();
   }
 
-  public async UpdateStorageObjectsRemoveMessage(message: any) {
+  public async UpdateStorageObjectsRemoveMessage(
+    message: StorageObjectsRemoveMessage
+  ) {
     for (const item of message.objectUIDList) {
       this.objects = this.objects.RemoveAll(
         o => o !== undefined && o.uid === item
@@ -298,7 +317,7 @@ export default class Storage {
     this.onStorageUpdated.trigger();
   }
 
-  public async UpdateExchangeLeaveMessage(message: any) {
+  public async UpdateExchangeLeaveMessage(message: ExchangeLeaveMessage) {
     if (
       message.dialogType === DialogTypeEnum.DIALOG_EXCHANGE &&
       this.account.state === AccountStates.STORAGE

@@ -512,5 +512,6 @@
   "loadTheme": "Load a Theme",
   "bruteforce": "Bruteforce",
   "breeding": "Breeding",
-  "noPaddock": "There is no paddock in this map."
+  "noPaddock": "There is no paddock in this map.",
+  "leaveDialog": "Leave Dialog"
 }

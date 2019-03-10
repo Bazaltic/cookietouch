@@ -4,7 +4,7 @@ import InteractiveElement from "@/protocol/network/types/InteractiveElement";
 export default class InteractiveElementEntry {
   public id: number;
   public elementTypeId: number;
-  public name: string;
+  public name?: string;
   public enabledSkills: SkillEntry[] = [];
   public disabledSkills: SkillEntry[] = [];
 

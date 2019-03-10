@@ -6,8 +6,8 @@ export default class QuestsAPI {
     this.account = account;
   }
 
-  public isOngoing(questId: number): boolean {
-    return this.account.game.quests.isOngoing(questId);
+  public isActive(questId: number): boolean {
+    return this.account.game.quests.isActive(questId);
   }
 
   public isCompleted(questId: number): boolean {

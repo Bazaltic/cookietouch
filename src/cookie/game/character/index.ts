@@ -15,11 +15,15 @@ import { BreedEnum } from "@/protocol/enums/BreedEnum";
 import { PlayerLifeStatusEnum } from "@/protocol/enums/PlayerLifeStatusEnum";
 import { PlayerStatusEnum } from "@/protocol/enums/PlayerStatusEnum";
 import CharacterLevelUpMessage from "@/protocol/network/messages/CharacterLevelUpMessage";
+import CharacterSelectedSuccessMessage from "@/protocol/network/messages/CharacterSelectedSuccessMessage";
+import CharacterStatsListMessage from "@/protocol/network/messages/CharacterStatsListMessage";
+import EmotePlayMessage from "@/protocol/network/messages/EmotePlayMessage";
 import GameRolePlayPlayerLifeStatusMessage from "@/protocol/network/messages/GameRolePlayPlayerLifeStatusMessage";
 import LifePointsRegenBeginMessage from "@/protocol/network/messages/LifePointsRegenBeginMessage";
 import LifePointsRegenEndMessage from "@/protocol/network/messages/LifePointsRegenEndMessage";
 import PlayerStatusUpdateMessage from "@/protocol/network/messages/PlayerStatusUpdateMessage";
 import SpellListMessage from "@/protocol/network/messages/SpellListMessage";
+import SpellUpgradeSuccessMessage from "@/protocol/network/messages/SpellUpgradeSuccessMessage";
 import EntityLook from "@/protocol/network/types/EntityLook";
 import IClearable from "@/utils/IClearable";
 import LiteEvent from "@/utils/LiteEvent";
@@ -423,7 +427,9 @@ export default class Character implements IClearable {
     this.mount.clear();
   }
 
-  public async UpdateCharacterSelectedSuccessMessage(message: any) {
+  public async UpdateCharacterSelectedSuccessMessage(
+    message: CharacterSelectedSuccessMessage
+  ) {
     this.id = message.infos.id;
     this.name = message.infos.name;
     this.level = message.infos.level;
@@ -452,7 +458,9 @@ export default class Character implements IClearable {
     this.onCharacterSelected.trigger();
   }
 
-  public async UpdateCharacterStatsListMessage(message: any) {
+  public async UpdateCharacterStatsListMessage(
+    message: CharacterStatsListMessage
+  ) {
     this.stats.UpdateCharacterStatsListMessage(message);
     this.inventory.UpdateCharacterStatsListMessage(message);
     this.onStatsUpdated.trigger();
@@ -489,7 +497,9 @@ export default class Character implements IClearable {
     this.onSpellsUpdated.trigger();
   }
 
-  public async UpdateSpellUpgradeSuccessMessage(message: any) {
+  public async UpdateSpellUpgradeSuccessMessage(
+    message: SpellUpgradeSuccessMessage
+  ) {
     const spell = this.getSpell(message.spellId);
     if (spell !== null) {
       spell.UpdateSpellUpgradeSuccessMessage(message);
@@ -503,7 +513,7 @@ export default class Character implements IClearable {
     this.onSpellsUpdated.trigger();
   }
 
-  public async UpdateEmotePlayMessage(message: any) {
+  public async UpdateEmotePlayMessage(message: EmotePlayMessage) {
     if (message.actorId !== this.id) {
       return;
     }

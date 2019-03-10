@@ -512,5 +512,6 @@
   "loadTheme": "Charger un Theme",
   "bruteforce": "Bruteforce",
   "breeding": "Elevage",
-  "noPaddock": "Il n'y a pas d'enclos sur cette map."
+  "noPaddock": "Il n'y a pas d'enclos sur cette map.",
+  "leaveDialog": "Quitter Dialogue"
 }

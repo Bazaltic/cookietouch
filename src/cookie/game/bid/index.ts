@@ -7,6 +7,8 @@ import ItemTypes from "@/protocol/data/classes/ItemTypes";
 import { DataTypes } from "@/protocol/data/DataTypes";
 import { ExchangeErrorEnum } from "@/protocol/enums/ExchangeErrorEnum";
 import ExchangeBidHouseInListUpdatedMessage from "@/protocol/network/messages/ExchangeBidHouseInListUpdatedMessage";
+import ExchangeErrorMessage from "@/protocol/network/messages/ExchangeErrorMessage";
+import ExchangeLeaveMessage from "@/protocol/network/messages/ExchangeLeaveMessage";
 import ExchangeStartedBidBuyerMessage from "@/protocol/network/messages/ExchangeStartedBidBuyerMessage";
 import ExchangeStartedBidSellerMessage from "@/protocol/network/messages/ExchangeStartedBidSellerMessage";
 import ExchangeTypesExchangerDescriptionForUserMessage from "@/protocol/network/messages/ExchangeTypesExchangerDescriptionForUserMessage";
@@ -280,7 +282,7 @@ export default class Bid implements IClearable {
     this.onStartedSelling.trigger();
   }
 
-  public async UpdateExchangeErrorMessage(message: any) {
+  public async UpdateExchangeErrorMessage(message: ExchangeErrorMessage) {
     this.account.logger.logError(
       "ExchangeError",
       `${ExchangeErrorEnum[message.errorType]}`
@@ -294,7 +296,7 @@ export default class Bid implements IClearable {
     this._itemDescription.resolve(new List());
   }
 
-  public async UpdateExchangeLeaveMessage(message: any) {
+  public async UpdateExchangeLeaveMessage(message: ExchangeLeaveMessage) {
     if (
       this.account.state !== AccountStates.BUYING &&
       this.account.state !== AccountStates.SELLING

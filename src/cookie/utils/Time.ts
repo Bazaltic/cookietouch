@@ -1,8 +1,14 @@
+import { getRandomInt } from "./Random";
+
 export function sleep(ms = 0) {
   if (ms <= 0) {
     return;
   }
   return new Promise(r => global.setTimeout(r, ms));
+}
+
+export function sleepRandom(min: number, max: number) {
+  return sleep(getRandomInt(min, max));
 }
 
 export function displayTime(millisec: number) {

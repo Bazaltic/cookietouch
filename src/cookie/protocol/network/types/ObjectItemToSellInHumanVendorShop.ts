@@ -3,26 +3,26 @@ import ObjectEffect from "@/protocol/network/types/ObjectEffect";
 
 export default class ObjectItemToSellInHumanVendorShop extends Item {
   public effects: ObjectEffect[];
-  public objectgid: number;
-  public objectuid: number;
+  public objectGID: number;
+  public objectUID: number;
   public quantity: number;
-  public objectprice: number;
-  public publicprice: number;
+  public objectPrice: number;
+  public publicPrice: number;
 
   constructor(
-    objectgid = 0,
-    objectuid = 0,
+    objectGID = 0,
+    objectUID = 0,
     quantity = 0,
-    objectprice = 0,
-    publicprice = 0,
+    objectPrice = 0,
+    publicPrice = 0,
     effects: ObjectEffect[]
   ) {
     super();
     this.effects = effects;
-    this.objectgid = objectgid;
-    this.objectuid = objectuid;
+    this.objectGID = objectGID;
+    this.objectUID = objectUID;
     this.quantity = quantity;
-    this.objectprice = objectprice;
-    this.publicprice = publicprice;
+    this.objectPrice = objectPrice;
+    this.publicPrice = publicPrice;
   }
 }

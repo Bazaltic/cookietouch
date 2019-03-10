@@ -20,6 +20,7 @@ import QuestsFrame from "@/frames/game/QuestsFrame";
 import StorageFrame from "@/frames/game/StorageFrame";
 import Dispatcher from "@/utils/Dispatcher";
 import BreedingFrame from "./game/BreedingFrame";
+import MerchantsFrame from "./game/MerchantsFrame";
 
 export interface IFrame {
   register: () => void;
@@ -49,6 +50,7 @@ export default class Frames {
     new GoultinesFrame(),
     new MountFrame(),
     new CraftFrame(),
+    new MerchantsFrame(),
     new BreedingFrame()
   ];
 

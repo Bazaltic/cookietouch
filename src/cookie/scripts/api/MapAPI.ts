@@ -208,6 +208,12 @@ export default class MapAPI {
     return true;
   }
 
+  public useEmote(id: number) {
+    this.account.network.sendMessageFree("EmotePlayRequestMessage", {
+      emoteId: id
+    });
+  }
+
   public async waitMapChange(delay = 5000) {
     await this.account.scripts.actionsManager.enqueueAction(
       new WaitMapChangeAction(delay),

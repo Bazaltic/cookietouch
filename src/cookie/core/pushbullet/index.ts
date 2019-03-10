@@ -13,7 +13,7 @@ export default class Pushbullet {
   private static httpClient: AxiosInstance;
   public static changeToken(accesToken: string) {
     this.httpClient = axios.create({
-      baseURL: "https://api.pushbullet.com/v2/",
+      baseURL: "https://api.pushbullet.com/v2",
       headers: {
         "Access-Token": accesToken
       }

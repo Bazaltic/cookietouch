@@ -36,6 +36,9 @@ import TimerWrapper from "@/utils/TimerWrapper";
 import BuyItemAction from "../actions/bid/BuyItemAction";
 import SellItemAction from "../actions/bid/SellItemAction";
 import UsePaddockAction from "../actions/map/UsePaddockAction";
+import MerchantBuyAction from "../actions/merchants/MerchantBuyAction";
+import OpenMerchantAction from "../actions/merchants/OpenMerchantAction";
+import ToggleRidingAction from "../actions/mount/ToggleRidingAction";
 
 export interface IActionsManagerEventData {
   account: Account;
@@ -104,6 +107,13 @@ export default class ActionsManager {
     this.account.game.craft.CraftLeft.on(this.craft_craftLeft);
     this.account.game.breeding.PaddockOpened.on(this.breeding_paddockOpened);
     this.account.game.breeding.PaddockLeft.on(this.breeding_paddockLeft);
+    this.account.game.character.mount.RidingUpdated.on(
+      this.mount_ridingUpdated
+    );
+    this.account.game.merchants.MerchantOpened.on(
+      this.merchants_merchantOpened
+    );
+    this.account.game.merchants.ObjectBuyed.on(this.merchants_objectBuyed);
   }
 
   public get ActionsFinished() {
@@ -625,6 +635,33 @@ export default class ActionsManager {
     }
     if (this.currentAction instanceof LeaveDialogAction) {
       this.dequeueActions(200);
+    }
+  };
+
+  private mount_ridingUpdated = async () => {
+    if (!this.account.scripts.running) {
+      return;
+    }
+    if (this.currentAction instanceof ToggleRidingAction) {
+      this.dequeueActions(500);
+    }
+  };
+
+  private merchants_merchantOpened = async () => {
+    if (!this.account.scripts.running) {
+      return;
+    }
+    if (this.currentAction instanceof OpenMerchantAction) {
+      this.dequeueActions(200);
+    }
+  };
+
+  private merchants_objectBuyed = async () => {
+    if (!this.account.scripts.running) {
+      return;
+    }
+    if (this.currentAction instanceof MerchantBuyAction) {
+      this.dequeueActions(500);
     }
   };
 

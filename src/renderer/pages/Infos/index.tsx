@@ -83,7 +83,7 @@ class Infos extends React.Component<IInfosProps, IInfosState> {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <Grid container={true} spacing={0}>
-            <Grid item={true} xs={10}>
+            <Grid item={true} xs={9}>
               <Typography variant="subtitle1">
                 Script: {this.state.scriptName}
               </Typography>
@@ -148,6 +148,18 @@ class Infos extends React.Component<IInfosProps, IInfosState> {
                 color="secondary"
               >
                 {LanguageManager.trans("remove")}
+              </Button>
+            </Grid>
+            <Grid item={true} xs={1}>
+              <Button
+                className={classes.buttonRemove}
+                disabled={!this.props.account.isInDialog}
+                size="small"
+                variant="text"
+                onClick={this.leaveDialog}
+                color="default"
+              >
+                {LanguageManager.trans("leaveDialog")}
               </Button>
             </Grid>
           </Grid>
@@ -377,6 +389,10 @@ class Infos extends React.Component<IInfosProps, IInfosState> {
 
   private buyBonusPack = () => {
     this.props.account.buyBonusPack();
+  };
+
+  private leaveDialog = () => {
+    this.props.account.leaveDialog();
   };
 
   private characterSelected = () => {

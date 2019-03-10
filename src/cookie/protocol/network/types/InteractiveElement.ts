@@ -6,7 +6,7 @@ export default class InteractiveElement extends Type {
   public disabledSkills: InteractiveElementSkill[];
   public elementId: number;
   public elementTypeId: number;
-  public _name: string;
+  public _name?: string;
 
   constructor(
     name = "",

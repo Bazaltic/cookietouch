@@ -130,9 +130,8 @@ async function* useZaap(destinationMapId) {
 }
 async function* usePaddock() {
   if (await API.map.usePaddock.bind(API.map)()) {
-    yield true;
+    yield;
   }
-  return false;
 }
 async function* useZaapi(destinationMapId) {
   if (await API.map.useZaapi.bind(API.map)(destinationMapId)) {
@@ -153,6 +152,9 @@ async function* joinFriend(name) {
   if (await API.map.joinFriend.bind(API.map)(name)) {
     yield;
   }
+}
+function useEmote(id) {
+  API.map.useEmote.bind(API.map)(id);
 }
 const onCell = API.map.onCell.bind(API.map);
 const onMap = API.map.onMap.bind(API.map);
@@ -301,9 +303,7 @@ const bid = {
       yield;
     }
   },
-  getItemPrice: async function (gid, lot) {
-    return await API.bid.getItemPrice.bind(API.bid)(gid, lot);
-  },
+  getItemPrice: API.bid.getItemPrice.bind(API.bid),
   buyItem: async function* (gid, lot) {
     if (await API.bid.buyItem.bind(API.bid)(gid, lot)) {
       yield;
@@ -342,9 +342,23 @@ const craft = {
 }
 // Quests
 const quests = {
-  isOngoing: API.quests.isOngoing.bind(API.quests),
+  isActive: API.quests.isActive.bind(API.quests),
   isCompleted: API.quests.isCompleted.bind(API.quests),
   currentStep: API.quests.currentStep.bind(API.quests),
   objectivesNeeded: API.quests.objectivesNeeded.bind(API.quests),
   needObjective: API.quests.needObjective.bind(API.quests)
+}
+// Merchants
+const merchants = {
+  open: async function* (cellId) {
+    if (await API.merchants.open.bind(API.merchants)(cellId)) {
+      yield;
+    }
+  },
+  buy: async function* (gid, qty) {
+    if (await API.merchants.buy.bind(API.merchants)(gid, qty)) {
+      yield;
+    }
+  },
+  objectsInShop: API.merchants.objectsInShop.bind(API.merchants)
 }

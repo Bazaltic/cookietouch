@@ -13,22 +13,22 @@ import LiteEvent from "@/utils/LiteEvent";
 export default class Quests {
   private account: Account;
   private finishedQuests: number[];
-  private ongoingQuests: number[];
+  private activeQuests: number[];
 
   private onQuestStepInfo = new LiteEvent<QuestStepInfoMessage>();
 
   constructor(account: Account) {
     this.account = account;
     this.finishedQuests = [];
-    this.ongoingQuests = [];
+    this.activeQuests = [];
   }
 
   public get QuestStepInfo() {
     return this.onQuestStepInfo.expose();
   }
 
-  public isOngoing(questId: number) {
-    return this.ongoingQuests.includes(questId);
+  public isActive(questId: number) {
+    return this.activeQuests.includes(questId);
   }
 
   public isCompleted(questId: number) {
@@ -36,8 +36,9 @@ export default class Quests {
   }
 
   public async currentStep(questId: number) {
-    const infos = await this.questInfos(questId);
-    if (infos instanceof QuestActiveDetailedInformations) {
+    const info = await this.questInfos(questId);
+    if (info._type === "QuestActiveDetailedInformations") {
+      const infos = info as QuestActiveDetailedInformations;
       return infos.stepId;
     }
     return -1;
@@ -60,17 +61,12 @@ export default class Quests {
   }
 
   public UpdateQuestListMessage(message: QuestListMessage) {
-    for (const questId of message.finishedQuestsIds) {
-      this.account.game.quests.finishedQuests.push(questId);
-    }
-
-    for (const quest of message.activeQuests) {
-      this.account.game.quests.ongoingQuests.push(quest.questId);
-    }
+    this.finishedQuests = message.finishedQuestsIds;
+    this.activeQuests = message.activeQuests.map(q => q.questId);
   }
 
   public UpdateQuestStartedMessage(message: QuestStartedMessage) {
-    this.account.game.quests.ongoingQuests.push(message.questId);
+    this.activeQuests.push(message.questId);
   }
 
   public UpdateQuestStepInfoMessage(message: QuestStepInfoMessage) {
@@ -78,13 +74,11 @@ export default class Quests {
   }
 
   public UpdateQuestValidatedMessage(message: QuestValidatedMessage) {
-    this.account.game.quests.finishedQuests.push(message.questId);
+    this.finishedQuests.push(message.questId);
 
-    const index = this.account.game.quests.ongoingQuests.indexOf(
-      message.questId
-    );
+    const index = this.activeQuests.indexOf(message.questId);
     if (index > -1) {
-      this.account.game.quests.ongoingQuests.splice(index, 1);
+      this.activeQuests.splice(index, 1);
     }
   }
 
@@ -98,12 +92,12 @@ export default class Quests {
     questId: number
   ): Promise<QuestActiveInformations | QuestActiveDetailedInformations> {
     return new Promise((resolve, reject) => {
-      if (!this.isOngoing(questId)) {
-        reject();
-        return;
+      if (!this.isActive(questId)) {
+        return reject();
       }
 
       const timeoutId = setTimeout(() => reject(), 5000);
+
       this.QuestStepInfo.once(message => {
         clearTimeout(timeoutId);
         resolve(message.infos);

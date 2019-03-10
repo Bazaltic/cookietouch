@@ -22,11 +22,13 @@ import GameRolePlayShowChallengeMessage from "@/protocol/network/messages/GameRo
 import MapComplementaryInformationsDataMessage from "@/protocol/network/messages/MapComplementaryInformationsDataMessage";
 import GameRolePlayCharacterInformations from "@/protocol/network/types/GameRolePlayCharacterInformations";
 import GameRolePlayGroupMonsterInformations from "@/protocol/network/types/GameRolePlayGroupMonsterInformations";
+import GameRolePlayMerchantInformations from "@/protocol/network/types/GameRolePlayMerchantInformations";
 import GameRolePlayMutantInformations from "@/protocol/network/types/GameRolePlayMutantInformations";
 import GameRolePlayNpcInformations from "@/protocol/network/types/GameRolePlayNpcInformations";
 import IClearable from "@/utils/IClearable";
 import LiteEvent from "@/utils/LiteEvent";
 import { sleep } from "@/utils/Time";
+import MerchantEntry from "./entities/MerchantEntry";
 
 export default class MapGame implements IClearable {
   get id() {
@@ -88,6 +90,10 @@ export default class MapGame implements IClearable {
     return Array.from(this._npcs.values());
   }
 
+  get merchants() {
+    return Array.from(this._merchants.values());
+  }
+
   get monstersGroups() {
     return Array.from(this._monstersGroups.values());
   }
@@ -131,6 +137,7 @@ export default class MapGame implements IClearable {
   public paddock: ElementInCellEntry | null = null;
   private _players = new Map<number, PlayerEntry>();
   private _npcs = new Map<number, NpcEntry>();
+  private _merchants = new Map<number, MerchantEntry>();
   private _monstersGroups = new Map<number, MonstersGroupEntry>();
   private _interactives = new Map<number, InteractiveElementEntry>();
   private _doors = new Map<number, ElementInCellEntry>();
@@ -316,6 +323,7 @@ export default class MapGame implements IClearable {
 
     this._players = new Map<number, PlayerEntry>();
     this._npcs = new Map<number, NpcEntry>();
+    this._merchants = new Map<number, MerchantEntry>();
     this._monstersGroups = new Map<number, MonstersGroupEntry>();
     this._interactives = new Map<number, InteractiveElementEntry>();
     this._doors = new Map<number, ElementInCellEntry>();
@@ -367,6 +375,12 @@ export default class MapGame implements IClearable {
           actor.contextualId,
           await MonstersGroupEntry.setup(parsed)
         );
+      } else if (
+        actor._type === "GameRolePlayMerchantInformations" ||
+        actor._type === "GameRolePlayMerchantWithGuildInformations"
+      ) {
+        const merchant = actor as GameRolePlayMerchantInformations;
+        this._merchants.set(merchant.contextualId, new MerchantEntry(merchant));
       }
     }
 
