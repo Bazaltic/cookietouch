@@ -212,6 +212,7 @@ const mount = {
 const storage = {
   itemCount: API.storage.itemCount.bind(API.storage),
   kamas: API.storage.kamas.bind(API.storage),
+  items: API.storage.items.bind(API.storage),
   putItem: async function* (gid, qty) {
     if (await API.storage.putItem.bind(API.storage)(gid, qty)) {
       yield;

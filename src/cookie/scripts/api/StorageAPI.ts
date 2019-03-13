@@ -1,5 +1,6 @@
 import Account from "@/account";
 import { AccountStates } from "@/account/AccountStates";
+import ObjectEntry from "@/game/character/inventory/ObjectEntry";
 import StorageGetAllItemsAction from "@/scripts/actions/storage/StorageGetAllItemsAction";
 import StorageGetExistingItemsAction from "@/scripts/actions/storage/StorageGetExistingItemsAction";
 import StorageGetItemAction from "@/scripts/actions/storage/StorageGetItemAction";
@@ -18,6 +19,10 @@ export default class StorageAPI {
 
   public kamas(): number {
     return this.account.game.storage.kamas;
+  }
+
+  public items(): ObjectEntry[] {
+    return this.account.game.storage.objects.ToArray();
   }
 
   public itemCount(gid: number): number {

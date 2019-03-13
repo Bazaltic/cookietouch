@@ -1,9 +1,11 @@
 # CookieTouch API Documentation
+
 [Sommaire](SUMMARY.md) | [Sommaire détaillé](singlepage.md)
 
 <hr>
 
 ## Sommaire
+
 - [Inventory](#inventory)
   - [pods](#inventorypods)
   - [podsMax](#inventorypodsmax)
@@ -17,36 +19,43 @@
   - [deleteItem](#inventaire-item-delete)
 
 # Inventory
+
 Toutes les fonctions relatives à l’inventaire du personnage.
 
 **Tous les GID sont disponibles dans le fichier [items.txt](https://github.com/yovanoc/cookietouch/blob/master/resources/identifiants/items.txt).**
 
 ## inventory.pods()
+
 - Return type: <a href="https://developer.mozilla.org/fr-Fr/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Retourne le nombre de pods utilisés.
+
 ```js
-const pods = inventory.pods()
+const pods = inventory.pods();
 ```
 
 <hr>
 
 ## inventory.podsMax()
+
 - Return type: <a href="https://developer.mozilla.org/fr-Fr/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Retourne les pods maximum du personnage.
+
 ```js
-const podsMax = inventory.podsMax()
+const podsMax = inventory.podsMax();
 ```
 
 <hr>
 
 ## inventory.podsP()
+
 - Return type: <a href="https://developer.mozilla.org/fr-Fr/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Retourne le pourcentage de pods utilisés.
+
 ```js
-const podsP = inventory.podsP()
+const podsP = inventory.podsP();
 ```
 
 <hr>
@@ -60,6 +69,7 @@ const podsP = inventory.podsP()
 Retourne le nombre d’objets dans l’inventaire.
 
 **Exemple:**
+
 ```js
 const nombreBle = inventory.itemCount(289); // Retourne le nombre de blé dans l'inventaire.
 ```
@@ -75,6 +85,7 @@ const nombreBle = inventory.itemCount(289); // Retourne le nombre de blé dans l
 Retourne le poids d’un item dans l’inventaire.
 
 **Exemple:**
+
 ```js
 const wheatWeight = inventory.itemWeight(289); // Retourne le poids d'un blé (2).
 ```
@@ -92,8 +103,9 @@ Permet d’utiliser un objet.
 Retourne true si l’objet a été utilisé, sinon retourne false.
 
 **Exemple:**
+
 ```js
-yield* await inventory.useItem(6965); // Utilise une Potion de Cité Bonta.
+yield * (await inventory.useItem(6965)); // Utilise une Potion de Cité Bonta.
 ```
 
 <hr>
@@ -109,8 +121,9 @@ Permet d'équiper un item.
 Retourne true si l’objet a été équipé, sinon retourne false.
 
 **Exemple:**
+
 ```js
-yield* await sinventory.equipItem(8575); // Equipe votre Ramboton.
+yield * (await inventory.equipItem(8575)); // Equipe votre Ramboton.
 ```
 
 <hr>
@@ -126,8 +139,9 @@ Permet de déséquiper un item.
 Retourne true si l’objet a été déséquipé, sinon retourne false.
 
 **Exemple:**
+
 ```js
-yield* await inventory.unEquipItem(7865); // Désequipe votre Dragodinde Squelette.
+yield * (await inventory.unEquipItem(7865)); // Désequipe votre Dragodinde Squelette.
 ```
 
 <hr>
@@ -143,8 +157,9 @@ Permet de jetter un item.
 Retourne true si l’objet a été jeté, sinon retourne false.
 
 **Exemple:**
+
 ```js
-yield* await inventory.dropItem(289, 50); // Drop 50 blé.
+yield * (await inventory.dropItem(289, 50)); // Drop 50 blé.
 ```
 
 <hr>
@@ -160,6 +175,7 @@ Permet de supprimer un item.
 Retourne true si l’objet a été supprimé, sinon retourne false.
 
 **Exemple:**
+
 ```js
-yield* await inventory.deleteItem(289, 100); // Supprime 100 blé.
+yield * (await inventory.deleteItem(289, 100)); // Supprime 100 blé.
 ```
