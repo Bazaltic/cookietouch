@@ -14,6 +14,8 @@ const character = {
   maxEnergyPoints: API.character.maxEnergyPoints.bind(API.character),
   energyPointsP: API.character.energyPointsP.bind(API.character),
   kamas: API.character.kamas.bind(API.character),
+  serverId: API.character.serverId.bind(API.character),
+  serverName: API.character.serverName.bind(API.character),
   sit: API.character.sit.bind(API.character),
   freeSoul: API.character.freeSoul.bind(API.character)
 }

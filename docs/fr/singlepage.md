@@ -128,6 +128,8 @@
   - [maxEnergyPoints](personnage.md#charactermaxenergypoints)
   - [energyPointsP](personnage.md#characterenergypointsp)
   - [kamas](personnage.md#characterkamas)
+  - [serverId](personnage.md#characterserverid)
+  - [serverName](personnage.md#characterservername)
   - [sit](personnage.md#charactersit)
   - [freeSoul](personnage.md#characterfreesoul)
 - [Stockage](stockage.md)
