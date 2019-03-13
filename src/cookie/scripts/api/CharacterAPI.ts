@@ -77,6 +77,14 @@ export default class CharacterAPI {
     return this.account.game.character.freeSoul();
   }
 
+  public serverId(): number {
+    return this.account.game.server.id;
+  }
+
+  public serverName(): string {
+    return this.account.game.server.name;
+  }
+
   public sit() {
     this.account.game.character.sit();
   }

@@ -1,9 +1,11 @@
 # CookieTouch API Documentation
+
 [Summary](SUMMARY.md) | [Single page summary](singlepage.md)
 
 <hr>
 
 ## Table of Contents
+
 - [Character](#character)
   - [isAlive](#characterisalive)
   - [isTombstone](#istombstone)
@@ -20,17 +22,22 @@
   - [energyPointsP](#characterenergypointsp)
   - [kamas](#characterkamas)
   - [sit](#charactersit)
+  - [serverId](#characterserverid)
+  - [serverName](#characterservername)
   - [freeSoul](#characterfreesoul)
 
 # Character
+
 All functions related to the character.
 
 ## character.isAlive
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type">boolean</a>
 
 Returns true if the character is alive, otherwise returns false.
 
 **Example:**
+
 ```js
 if (character.isAlive) {
   // The character is alive.
@@ -38,11 +45,13 @@ if (character.isAlive) {
 ```
 
 ## character.isTombstone
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type">boolean</a>
 
 Returns true if the character is a tombstone, otherwise returns false.
 
 **Example:**
+
 ```js
 if (character.isTombstone) {
   // The character is a tombstone.
@@ -50,11 +59,13 @@ if (character.isTombstone) {
 ```
 
 ## character.isPhantom
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type">boolean</a>
 
 Returns true if the character is a ghost, otherwise returns false.
 
 **Example:**
+
 ```js
 if (character.isPhantom) {
   // The character is a phantom.
@@ -62,113 +73,159 @@ if (character.isPhantom) {
 ```
 
 ## character.name
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type">string</a>
 
 Returns the name of the character.
 
 **Example:**
+
 ```js
-character.name
+character.name;
 ```
 
 ## character.level
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Returns the level of the character.
 
 **Example:**
+
 ```js
-character.level
+character.level;
 ```
 
 ## character.sex
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type">boolean</a>
 
 Returns true if the character is a male, false if it is a female.
 
 **Example:**
+
 ```js
-character.sex
+character.sex;
 ```
 
 ## character.lifePoints
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Returns the life points of the character.
 
 **Example:**
+
 ```js
-character.lifePoints
+character.lifePoints;
 ```
 
 ## character.maxLifePoints
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Returns the maximum life points of the character.
 
 **Example:**
+
 ```js
-character.maxLifePoints
+character.maxLifePoints;
 ```
 
 ## character.lifePointsP
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Returns the percentage of life of the character.
 
 **Example:**
+
 ```js
-character.lifePointsP
+character.lifePointsP;
 ```
 
 ## character.experience
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Returns the character's experience.
 
 **Example:**
+
 ```js
-character.experience
+character.experience;
 ```
 
 ## character.energyPoints
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Returns the character's energy points.
 
 **Example:**
+
 ```js
-character.energyPoints
+character.energyPoints;
 ```
 
 ## character.maxEnergyPoints
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Returns the maximum energy points of the character.
 
 **Example:**
+
 ```js
-character.maxEnergyPoints
+character.maxEnergyPoints;
 ```
 
 ## character.energyPointsP
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Returns the energy percentage of the character.
 
 **Example:**
+
 ```js
-character.energyPoints
+character.energyPoints;
 ```
 
 ## character.kamas
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type">number</a>
 
 Returns the number of kamas the character has.
 
 **Example:**
+
 ```js
-character.kamas
+character.kamas;
+```
+
+## character.serverId
+
+- Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type">number</a>
+
+Returns the ID of the server where the character is connected.
+
+**Example:**
+
+```js
+character.serverId();
+```
+
+## character.serverName
+
+- Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type">string</a>
+
+Returns the name of the server where the character is connected.
+
+**Example:**
+
+```js
+character.serverName();
 ```
 
 ## character.sit()
@@ -176,11 +233,13 @@ character.kamas
 Allows the character to sit down.
 
 **Example:**
+
 ```js
-character.sit()
+character.sit();
 ```
 
 ## character.freeSoul()
+
 - Return type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type">boolean</a>
 
 Free the soul of the character.
@@ -188,12 +247,14 @@ Free the soul of the character.
 Returns true if the character has successfully free his soul, otherwise returns false.
 
 **Example:**
+
 ```js
 if (character.isTombstone) {
-  if (character.freeSoul()) { // If the character is a grave, then free his soul.
-  // The soul has been released.
+  if (character.freeSoul()) {
+    // If the character is a grave, then free his soul.
+    // The soul has been released.
   } else {
-  // The soul has not been released.
+    // The soul has not been released.
   }
 }
 ```

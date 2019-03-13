@@ -10,7 +10,7 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["cookie/*"],
-      "@logger": ["cookie/core/logger"],
+      "@logger": ["cookie/core/logger"]
     }
   }
 }
