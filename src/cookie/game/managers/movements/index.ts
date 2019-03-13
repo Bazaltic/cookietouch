@@ -13,7 +13,7 @@ import IClearable from "@/utils/IClearable";
 import LiteEvent from "@/utils/LiteEvent";
 import { getRandomInt } from "@/utils/Random";
 import { sleep } from "@/utils/Time";
-import { Enumerable } from "linqts";
+import { Enumerable, List } from "linqts";
 
 export default class MovementsManager implements IClearable {
   private readonly onMovementFinished = new LiteEvent<boolean>();
@@ -368,6 +368,30 @@ export default class MovementsManager implements IClearable {
 
   private getChangeMapCells(direction: MapChangeDirections): number[] {
     return Enumerable.Range(0, 560)
+      .Except(
+        new List([
+          0,
+          28,
+          14,
+          1,
+          13,
+          27,
+          12,
+          26,
+          41,
+          55,
+          532,
+          546,
+          504,
+          518,
+          533,
+          547,
+          559,
+          558,
+          545,
+          531
+        ])
+      )
       .Where(c => this.canChangeMap(c, direction))
       .ToArray();
   }

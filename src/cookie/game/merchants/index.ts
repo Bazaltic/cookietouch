@@ -65,6 +65,9 @@ export default class Merchants {
   }
 
   public UpdateExchangeLeaveMessage(message: ExchangeLeaveMessage) {
+    if (this.account.state !== AccountStates.TALKING) {
+      return;
+    }
     this.account.state = AccountStates.NONE;
     this.objectInfos = [];
   }
