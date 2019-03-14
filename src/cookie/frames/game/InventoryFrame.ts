@@ -1,6 +1,7 @@
 import Account from "@/account";
 import Frames, { IFrame } from "@/frames";
 import DisplayNumericalValueMessage from "@/protocol/network/messages/DisplayNumericalValueMessage";
+import InventoryContentAndPresetMessage from "@/protocol/network/messages/InventoryContentAndPresetMessage";
 import InventoryContentMessage from "@/protocol/network/messages/InventoryContentMessage";
 import InventoryWeightMessage from "@/protocol/network/messages/InventoryWeightMessage";
 import KamasUpdateMessage from "@/protocol/network/messages/KamasUpdateMessage";
@@ -68,6 +69,11 @@ export default class InventoryFrame implements IFrame {
     Frames.dispatcher.register(
       "InventoryContentMessage",
       this.HandleInventoryContentMessage,
+      this
+    );
+    Frames.dispatcher.register(
+      "InventoryContentAndPresetMessage",
+      this.HandleInventoryContentAndPresetMessage,
       this
     );
     Frames.dispatcher.register(
@@ -150,6 +156,13 @@ export default class InventoryFrame implements IFrame {
   private async HandleInventoryContentMessage(
     account: Account,
     message: InventoryContentMessage
+  ) {
+    account.game.character.inventory.UpdateInventoryContentMessage(message);
+  }
+
+  private async HandleInventoryContentAndPresetMessage(
+    account: Account,
+    message: InventoryContentAndPresetMessage
   ) {
     account.game.character.inventory.UpdateInventoryContentMessage(message);
   }

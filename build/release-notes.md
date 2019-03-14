@@ -2,10 +2,14 @@
 
 ## FR
 
-- Ajout des méthodes `character.serverId()` et `character.serverName()` et `storage.items()`
-- Modification des changements de maps (Peut régler le problème de groupes) (A TEST)
+- Le bug de l'inventaire vide est corrigé
+- Ajout des menus Documentation et Identifiants
+- Ajout des méthodes `inventory.equipedItems()` & `inventory.isEquiped(GID)`
+- Ajout d'une méthode `data.item(GID)`
 
 ## EN
 
-- Added `character.serverId()` and `character.serverName()` and `storage.items()` methods
-- Maps changes are modified (can possibly fix groups issues) (TO TEST)
+- Empty inventory's bug is fixed
+- Add Documentation and Identifiants menus
+- Add `inventory.equipedItems()` & `inventory.isEquiped(GID)` methods
+- Add `data.item(GID)` method

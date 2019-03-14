@@ -46,6 +46,7 @@ const isFighting = API.isFighting
 const isGathering = API.isGathering
 const isInDialog = API.isInDialog
 const printMessage = API.printMessage
+const printBullet = API.printBullet
 const printDebug = API.printDebug
 const printSuccess = API.printSuccess
 const printError = API.printError
@@ -66,6 +67,8 @@ const inventory = {
   pods: API.inventory.pods.bind(API.inventory),
   podsMax: API.inventory.podsMax.bind(API.inventory),
   podsP: API.inventory.podsP.bind(API.inventory),
+  equipedItems: API.inventory.equipedItems.bind(API.inventory),
+  isEquiped: API.inventory.isEquiped.bind(API.inventory),
   itemCount: API.inventory.itemCount.bind(API.inventory),
   itemWeight: API.inventory.itemWeight.bind(API.inventory),
   useItem: async function* (gid, qty) {
@@ -364,4 +367,8 @@ const merchants = {
     }
   },
   objectsInShop: API.merchants.objectsInShop.bind(API.merchants)
+}
+// Data
+const data = {
+  item: API.data.item.bind(API.data)
 }

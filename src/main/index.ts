@@ -6,7 +6,8 @@ import {
   ipcMain,
   Menu,
   MenuItemConstructorOptions,
-  screen
+  screen,
+  shell
 } from "electron";
 import log from "electron-log";
 import { appUpdater } from "./updater";
@@ -32,9 +33,88 @@ const template: MenuItemConstructorOptions[] = [
     submenu: [
       {
         click: () => {
-          //
+          if (!isDevelopment) {
+            ipcMain.on("ask-update", (event: any, channel: string) =>
+              appUpdater(mainWindow, channel)
+            );
+          }
         },
         label: "Check updates"
+      }
+    ]
+  },
+  {
+    click: () => {
+      shell.openExternal("https://docs.cookietouch.com/");
+    },
+    label: "Documentation"
+  },
+  {
+    label: "Identifiants",
+    submenu: [
+      {
+        click: () => {
+          shell.openExternal(
+            "https://raw.githubusercontent.com/cookie-project/cookietouch/dev/resources/identifiants/items.txt"
+          );
+        },
+        label: "Items"
+      },
+      {
+        click: () => {
+          shell.openExternal(
+            "https://raw.githubusercontent.com/cookie-project/cookietouch/dev/resources/identifiants/jobs.txt"
+          );
+        },
+        label: "Jobs"
+      },
+      {
+        click: () => {
+          shell.openExternal(
+            "https://raw.githubusercontent.com/cookie-project/cookietouch/dev/resources/identifiants/monsters.txt"
+          );
+        },
+        label: "Monsters"
+      },
+      {
+        click: () => {
+          shell.openExternal(
+            "https://raw.githubusercontent.com/cookie-project/cookietouch/dev/resources/identifiants/npcs.txt"
+          );
+        },
+        label: "Npcs"
+      },
+      {
+        click: () => {
+          shell.openExternal(
+            "https://raw.githubusercontent.com/cookie-project/cookietouch/dev/resources/identifiants/quests.txt"
+          );
+        },
+        label: "Quests"
+      },
+      {
+        click: () => {
+          shell.openExternal(
+            "https://raw.githubusercontent.com/cookie-project/cookietouch/dev/resources/identifiants/resources.txt"
+          );
+        },
+        label: "Resources"
+      },
+      {
+        click: () => {
+          shell.openExternal(
+            "https://raw.githubusercontent.com/cookie-project/cookietouch/dev/resources/identifiants/servers.txt"
+          );
+        },
+        label: "Servers"
+      },
+      {
+        click: () => {
+          shell.openExternal(
+            "https://raw.githubusercontent.com/cookie-project/cookietouch/dev/resources/identifiants/spells.txt"
+          );
+        },
+        label: "Spells"
       }
     ]
   }

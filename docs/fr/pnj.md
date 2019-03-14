@@ -55,7 +55,7 @@ Permet d’ouvrir la banque.
 **Exemple:**
 
 ```js
-yield * (await npc.npcBank(-1, -1)); // Choisi le premier npc de la map et choisi la première réponse.
+yield * (await npc.npcBank(-1, 1)); // Choisi le premier npc de la map et choisi la première réponse.
 ```
 
 <hr>
@@ -69,7 +69,7 @@ Permet de parler à un PNJ et de sélectionner l'action à utiliser.
 **Exemple:**
 
 ```js
-yield * (await npc.npc(-1, -1)); // Choisi le premier npc de la map et choisi la première réponse.
+yield * (await npc.npc(-1, 1)); // Choisi le premier npc de la map et choisi la première réponse.
 ```
 
 <hr>

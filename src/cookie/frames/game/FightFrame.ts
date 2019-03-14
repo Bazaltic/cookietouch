@@ -28,6 +28,7 @@ import GameFightStartMessage from "@/protocol/network/messages/GameFightStartMes
 import GameFightSynchronizeMessage from "@/protocol/network/messages/GameFightSynchronizeMessage";
 import GameFightTurnEndMessage from "@/protocol/network/messages/GameFightTurnEndMessage";
 import GameFightTurnReadyRequestMessage from "@/protocol/network/messages/GameFightTurnReadyRequestMessage";
+import GameFightTurnResumeMessage from "@/protocol/network/messages/GameFightTurnResumeMessage";
 import GameFightTurnStartMessage from "@/protocol/network/messages/GameFightTurnStartMessage";
 import GameFightUpdateTeamMessage from "@/protocol/network/messages/GameFightUpdateTeamMessage";
 import GameMapMovementMessage from "@/protocol/network/messages/GameMapMovementMessage";
@@ -102,6 +103,11 @@ export default class FightFrame implements IFrame {
     Frames.dispatcher.register(
       "GameFightTurnStartMessage",
       this.HandleGameFightTurnStartMessage,
+      this
+    );
+    Frames.dispatcher.register(
+      "GameFightTurnResumeMessage",
+      this.HandleGameFightTurnResumeMessage,
       this
     );
     Frames.dispatcher.register(
@@ -325,6 +331,13 @@ export default class FightFrame implements IFrame {
   private async HandleGameFightTurnStartMessage(
     account: Account,
     message: GameFightTurnStartMessage
+  ) {
+    account.game.fight.UpdateGameFightTurnStartMessage(message);
+  }
+
+  private async HandleGameFightTurnResumeMessage(
+    account: Account,
+    message: GameFightTurnResumeMessage
   ) {
     account.game.fight.UpdateGameFightTurnStartMessage(message);
   }

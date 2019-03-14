@@ -1,4 +1,5 @@
 import Account from "@/account";
+import ObjectEntry from "@/game/character/inventory/ObjectEntry";
 import { CharacterInventoryPositionEnum } from "@/protocol/enums/CharacterInventoryPositionEnum";
 import DeleteItemAction from "@/scripts/actions/inventory/DeleteItemAction";
 import DropItemAction from "@/scripts/actions/inventory/DropItemAction";
@@ -23,6 +24,29 @@ export default class InventoryAPI {
 
   public podsP(): number {
     return this.account.game.character.inventory.weightPercent;
+  }
+
+  public equipedItems(): ObjectEntry[] {
+    return this.account.game.character.inventory.objects
+      .Where(
+        item =>
+          item !== undefined &&
+          item.position !==
+            CharacterInventoryPositionEnum.ACCESSORY_POSITION_NOT_EQUIPED
+      )
+      .ToArray();
+  }
+
+  public isEquiped(gid: number): boolean {
+    const item = this.account.game.character.inventory.getObjectByGid(gid);
+    if (
+      !item ||
+      item.position !==
+        CharacterInventoryPositionEnum.ACCESSORY_POSITION_NOT_EQUIPED
+    ) {
+      return true;
+    }
+    return false;
   }
 
   public itemCount(gid: number): number {

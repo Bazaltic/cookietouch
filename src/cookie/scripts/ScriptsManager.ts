@@ -1064,6 +1064,19 @@ export default class ScriptsManager {
       this.account.logger.logMessage(LanguageManager.trans("scripts"), message);
     };
 
+    (global as any).API[this.account.accountConfig.username].printBullet = (
+      message: string
+    ) => {
+      this.account.logger.logMessage(
+        LanguageManager.trans("scripts") + " [PUSHBULLET]",
+        message
+      );
+      Pushbullet.push(
+        `[${this.account.game.character.name}] PrintBullet`,
+        message
+      );
+    };
+
     (global as any).API[this.account.accountConfig.username].printDebug = (
       message: string
     ) => {
