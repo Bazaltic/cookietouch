@@ -68,7 +68,7 @@ export default class ScriptsManager {
     this.actionsManager.ActionsFinished.on(this.onActionsFinished);
     this.actionsManager.CustomHandled.on(this.onCustomHandled);
   }
-
+// 1
   get running(): boolean {
     return this.account.isGroupChief === true
       ? this.enabled && !this.paused
@@ -108,9 +108,10 @@ export default class ScriptsManager {
   }
 
   private get gotToMaxPods(): boolean {
-    const maxPods = this.scriptManager.config.MAX_PODS
-      ? this.scriptManager.config.MAX_PODS
-      : 90;
+    const maxPods = this.account.game.map.id === 13631488 ? 87 :
+     this.account.game.map.id === 144931 ? 87 :
+     this.account.game.map.id === 8912911 ? 87 :
+     this.scriptManager.config.MAX_PODS
     return this.account.game.character.inventory.weightPercent >= maxPods;
   }
 
