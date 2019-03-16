@@ -22,6 +22,7 @@ interface IConfigurationJSON {
   statToBoost: BoostableStats;
   ignoreNonAuthorizedTrades: boolean;
   disconnectUponFightsLimit: boolean;
+  disconnectUponGatherLimit: boolean;
   spellsToBoost: ISpellToBoostEntry[];
   autoMount: boolean;
   authorizedTradesFrom: number[];
@@ -43,6 +44,7 @@ export default class Configuration implements IConfigurationJSON {
   public statToBoost: BoostableStats;
   public ignoreNonAuthorizedTrades: boolean;
   public disconnectUponFightsLimit: boolean;
+  public disconnectUponGatherLimit: boolean;
   public spellsToBoost: SpellToBoostEntry[];
   public autoMount: boolean;
   public authorizedTradesFrom: number[];
@@ -78,6 +80,7 @@ export default class Configuration implements IConfigurationJSON {
     this.statToBoost = BoostableStats.NONE;
     this.ignoreNonAuthorizedTrades = false;
     this.disconnectUponFightsLimit = false;
+    this.disconnectUponGatherLimit = false;
     this.spellsToBoost = new Array<SpellToBoostEntry>();
     this.autoMount = true;
     this.authorizedTradesFrom = [];
@@ -133,6 +136,7 @@ export default class Configuration implements IConfigurationJSON {
       autoMount: this.autoMount,
       autoRegenAccepted: this.autoRegenAccepted,
       disconnectUponFightsLimit: this.disconnectUponFightsLimit,
+      disconnectUponGatherLimit: this.disconnectUponGatherLimit,
       enableSpeedHack: this.enableSpeedHack,
       ignoreNonAuthorizedTrades: this.ignoreNonAuthorizedTrades,
       pushBullet: this.pushBullet
@@ -163,6 +167,7 @@ export default class Configuration implements IConfigurationJSON {
     this.authorizedTradesFrom = json.authorizedTradesFrom;
     this.autoRegenAccepted = json.autoRegenAccepted;
     this.disconnectUponFightsLimit = json.disconnectUponFightsLimit;
+    this.disconnectUponGatherLimit = json.disconnectUponGatherLimit;
     this.enableSpeedHack = json.enableSpeedHack;
     this.ignoreNonAuthorizedTrades = json.ignoreNonAuthorizedTrades;
     this.pushBullet = json.pushBullet
