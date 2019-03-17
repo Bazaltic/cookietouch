@@ -50,6 +50,7 @@ export interface IConfigurationTabState {
   breedSpells: Spells[];
   characterConnected: boolean;
   disconnectUponFightsLimit: boolean;
+  disconnectUponGatherLimit: boolean;
   enableSpeedHack: boolean;
   ignoreNonAuthorizedTrades: boolean;
   spellId: number;

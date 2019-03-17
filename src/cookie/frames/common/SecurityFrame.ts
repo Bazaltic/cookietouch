@@ -87,6 +87,16 @@ export default class SecurityFrame implements IFrame {
         await account.stop();
       }
     }
+    if (data.msgId === 420) {
+      account.logger.logDebug(
+        LanguageManager.trans("securityFrame"),
+        LanguageManager.trans("dailyGatherLimit")
+      );
+      if (account.config.disconnectUponGatherLimit) {
+        await account.stop();
+      }
+    }
+
   }
 
   private async HandleAccountLoggingKickedMessage(

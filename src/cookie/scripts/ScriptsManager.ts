@@ -108,9 +108,10 @@ export default class ScriptsManager {
   }
 
   private get gotToMaxPods(): boolean {
-    const maxPods = this.scriptManager.config.MAX_PODS
-      ? this.scriptManager.config.MAX_PODS
-      : 90;
+    const maxPods = this.account.game.map.id === 13631488 ? 87 :
+     this.account.game.map.id === 144931 ? 87 :
+     this.account.game.map.id === 8912911 ? 87 :
+     this.scriptManager.config.MAX_PODS
     return this.account.game.character.inventory.weightPercent >= maxPods;
   }
 

@@ -46,6 +46,7 @@ class Configuration extends React.Component<
     breedSpells: [],
     characterConnected: false,
     disconnectUponFightsLimit: false,
+    disconnectUponGatherLimit: false,
     enableSpeedHack: false,
     ignoreNonAuthorizedTrades: false,
     spellId: -1,
@@ -287,6 +288,21 @@ class Configuration extends React.Component<
                   <FormControlLabel
                     control={
                       <Switch
+                        id="disconnectUponGatherLimit"
+                        name="disconnectUponGatherLimit"
+                        disabled={this.state.characterConnected === false}
+                        color="primary"
+                        checked={this.state.disconnectUponGatherLimit}
+                        onChange={this.handleSwitchChange}
+                      />
+                    }
+                    label={LanguageManager.trans("disconnectGatherLimit")}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Switch
                         id="autoRegenAccepted"
                         name="autoRegenAccepted"
                         disabled={this.state.characterConnected === false}
@@ -432,7 +448,9 @@ class Configuration extends React.Component<
       breedSpells,
       characterConnected: true,
       disconnectUponFightsLimit: this.props.account.config
-        .disconnectUponFightsLimit,
+      .disconnectUponFightsLimit,
+      disconnectUponGatherLimit: this.props.account.config
+      .disconnectUponGatherLimit,
       enableSpeedHack: this.props.account.config.enableSpeedHack,
       ignoreNonAuthorizedTrades: this.props.account.config
         .ignoreNonAuthorizedTrades,
@@ -497,11 +515,10 @@ class Configuration extends React.Component<
       authorizedTradesFrom: this.props.account.config.authorizedTradesFrom,
       autoMount: this.props.account.config.autoMount,
       autoRegenAccepted: this.props.account.config.autoRegenAccepted,
-      disconnectUponFightsLimit: this.props.account.config
-        .disconnectUponFightsLimit,
+      disconnectUponFightsLimit: this.props.account.config.disconnectUponFightsLimit,
+      disconnectUponGatherLimit: this.props.account.config.disconnectUponGatherLimit,
       enableSpeedHack: this.props.account.config.enableSpeedHack,
-      ignoreNonAuthorizedTrades: this.props.account.config
-        .ignoreNonAuthorizedTrades,
+      ignoreNonAuthorizedTrades: this.props.account.config.ignoreNonAuthorizedTrades,
       spells: this.props.account.config.spellsToBoost,
       statToBoost: this.props.account.config.statToBoost
     });
