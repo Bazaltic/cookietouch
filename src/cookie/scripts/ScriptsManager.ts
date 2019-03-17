@@ -68,7 +68,7 @@ export default class ScriptsManager {
     this.actionsManager.ActionsFinished.on(this.onActionsFinished);
     this.actionsManager.CustomHandled.on(this.onCustomHandled);
   }
-// 1
+// 12
   get running(): boolean {
     return this.account.isGroupChief === true
       ? this.enabled && !this.paused
